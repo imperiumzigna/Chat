@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Conversas de " + User.Identity.Name;
+}
+
+<div id="conversas">
+
+</div>
+
+<div id="conteudo">
+
+</div>
+
+@section ChatJs{
+    @Scripts.Render("~/bundles/chat")
+}
