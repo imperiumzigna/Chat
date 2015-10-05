@@ -20,7 +20,7 @@ namespace Chat.Models
         public string Conteudo { get; set; }
         public DateTime? Hora { get; set; }
         public virtual Conversa Conversa { get; set; }
-
+        
         public Mensagem()
         {
         }
@@ -30,6 +30,7 @@ namespace Chat.Models
             Usuario = u;
             Conteudo = c;
             Hora = h;
+             
         }
     }
 

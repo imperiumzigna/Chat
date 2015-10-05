@@ -1,4 +1,5 @@
-﻿var carrega = function carregaMensagens() {
+﻿
+var carrega = function carregaMensagens() {
 
     var ajax = $.get("ChatApi/ReceiveAll");
     ajax.done(function receive(result) {

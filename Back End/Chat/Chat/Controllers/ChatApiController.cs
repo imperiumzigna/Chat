@@ -21,6 +21,7 @@ namespace Chat.Controllers
                 return HttpNotFound();
             }
 
+            // Insere usuário na base
             UserProfile user = db.UserProfiles.FirstOrDefault(x => x.UserName == username);
             UserProfile i = db.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
 
