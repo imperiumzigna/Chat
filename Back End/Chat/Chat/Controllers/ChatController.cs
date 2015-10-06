@@ -12,6 +12,7 @@ namespace Chat.Controllers
         //Apenas retorna a página do chat
         public ActionResult Index()
         {
+
             return View();
         }
         

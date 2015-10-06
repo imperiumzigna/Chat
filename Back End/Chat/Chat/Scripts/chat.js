@@ -16,9 +16,9 @@ var carrega = function carregaMensagens() {
 }
 
 // Teste de busca pelo nome do usuário 
-$(document).ready(
-    function () {
-        $("#buscar").submit(function () {
-        alert($("#inpt_search").val());
-        });
-    });
+//$(document).ready(
+//    function () {
+//        $("#buscar").submit(function () {
+//        alert($("#inpt_search").val());
+//        });
+//    });
