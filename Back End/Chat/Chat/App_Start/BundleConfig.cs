@@ -32,7 +32,9 @@ namespace Chat
             bundles.Add(new StyleBundle("~/Content/").Include(
                         "~/Content/boostrap.css",
                         "~/Content/bootstrap.min.css",
-                        "~/Content/materialize/css/materialize.css"
+                        "~/Content/materialize/css/materialize.css",
+                        "~/Content/font-awesome.css",
+                        "~/Content/font-awesome.min.css"
                         ));
         }
     }

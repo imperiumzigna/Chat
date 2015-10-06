@@ -3,13 +3,23 @@
 }
 
 
-<div id="conversas">
+<div class="container" id="conversas">
 
 </div>
 
-<div id="conteudo">
-   
+<div class="container" id="conteudo">
+  
 </div>
+<div class="row">
+    <div class="col">
+        <form id="enviar">
+            <input id="mensagem" placeholder="Mensagem" type="text" />
+            <button class="btn"><i class="fa fa-paper-plane fa-2x"></i> Enviar</button>
+
+        </form>
+    </div>
+</div>
+
 
 @section ChatJs{
     @Scripts.Render("~/bundles/chat")

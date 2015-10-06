@@ -14,6 +14,7 @@ namespace Chat.Controllers
         UsersContext db = new UsersContext();
 
         //Envia uma mensagem para um usuário
+        [HttpPost]
         public ActionResult Send(string username, string mensagem)
         {
             if (username == null || mensagem == null)
@@ -53,6 +54,7 @@ namespace Chat.Controllers
         }
 
         //Recebe todas as mensagens do usuário logado (em formato JSON)
+        [HttpGet]
         public ActionResult ReceiveAll()
         {
             UserProfile user = db.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
