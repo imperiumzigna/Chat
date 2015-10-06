@@ -23,10 +23,12 @@ namespace Chat
             //    consumerSecret: "");
 
             OAuthWebSecurity.RegisterFacebookClient(
-               appId: "703609803072492",
-               appSecret: "5160507643a9dee293b3ad24db1ac6ed");
+               appId: "1081210975237409",
+               appSecret: "0e416716a79b91e337fbe91e9b534515");
 
-            //OAuthWebSecurity.RegisterGoogleClient();
+            
+            //OAuthWebSecurity.RegisterGoogleClient("Google");
+            
         }
     }
 }
