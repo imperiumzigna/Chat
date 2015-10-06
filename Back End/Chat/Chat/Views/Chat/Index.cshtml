@@ -1,7 +1,10 @@
 ﻿@{
     ViewBag.Title = "Conversas de " + User.Identity.Name;
 }
-
+<form id="buscar">
+<input id="inpt_search" type="text" placeholder="Buscar usuário" />
+    <button class="btn btn-primary" type="submit">Buscar</button>
+</form>
 <div id="conversas">
 
 </div>
@@ -13,3 +16,4 @@
 @section ChatJs{
     @Scripts.Render("~/bundles/chat")
 }
+

@@ -14,5 +14,6 @@ namespace Chat.Controllers
         {
             return View();
         }
+        
     }
 }

@@ -10,7 +10,9 @@ namespace Chat
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/bootstrap.js"));
+            
             bundles.Add(new ScriptBundle("~/bundles/chat").Include(
                         "~/Scripts/chat.js"));
 
@@ -30,6 +32,8 @@ namespace Chat
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
+                        "~/Content/boostrap.css",
+                        "~/Content/bootstrap.min.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",
                         "~/Content/themes/base/jquery.ui.selectable.css",
                         "~/Content/themes/base/jquery.ui.accordion.css",
@@ -40,7 +44,9 @@ namespace Chat
                         "~/Content/themes/base/jquery.ui.tabs.css",
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
-                        "~/Content/themes/base/jquery.ui.theme.css"));
+                        "~/Content/themes/base/jquery.ui.theme.css",
+                        "~/Content/materialize/css/materialize.css"
+                        ));
         }
     }
 }
