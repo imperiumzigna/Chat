@@ -12,8 +12,14 @@ var carrega = function () {
         $("#conteudo").append("<p>" + objeto[0].Mensagens[0].Conteudo + "</p>");
     });
 }
-
-
+// Commit Teste -> a deletar 
+// Falta receber o nome do usuário a que se deseja enviar a mensagem 
+var enviar = function () {
+    var ajax = $.post("ChatApi/Send", {
+        user: "",
+        mensagem: ""
+    });
+}
     
 // Teste de busca pelo nome do usuário 
 $(document).ready(function () {
