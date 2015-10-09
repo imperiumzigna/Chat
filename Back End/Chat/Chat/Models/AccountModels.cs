@@ -17,22 +17,41 @@ namespace Chat.Models
         {
         }
 
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Conversa>().HasMany<Usuario>(x => x.Participantes).WithMany(y => y.Conversas).Map(
+                z => z.MapLeftKey("ConversaId")
+                    .MapRightKey("UsuarioId")
+                    .ToTable("ControleConversas")
+                );
+
+            modelBuilder.Entity<Usuario>().HasMany<Mensagem>(x => x.Mensagens).WithMany(y => y.Usuarios).Map(
+                z => z.MapLeftKey("UsuarioId")
+                    .MapRightKey("MensagemId")
+                    .ToTable("ControleMensagens")
+                );
+        }
+
+        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Conversa> Conversas { get; set; }
         public DbSet<Mensagem> Mensagens { get; set; }
     }
 
-    [Table("UserProfile")]
-    public class UserProfile
+    [Table("Usuarios")]
+    public class Usuario
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        public string UserName { get; set; }
+        public int UsuarioId { get; set; }
+        public string UsuarioNome { get; set; }
+        public virtual List<Mensagem> Mensagens { get; set; }
         public virtual List<Conversa> Conversas { get; set; }
 
-        public UserProfile()
+        public Usuario()
         {
+            Mensagens = new List<Mensagem>();
             Conversas = new List<Conversa>();
         }
     }

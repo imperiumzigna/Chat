@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Conversas de " + User.Identity.Name;
+    ViewBag.Title = User.Identity.Name;
 }
 
 
@@ -8,15 +8,12 @@
 </div>
 
 <div class="container" id="conteudo">
-  
+
 </div>
 <div class="row">
     <div class="col">
-        <form id="enviar">
-            <input id="mensagem" placeholder="Mensagem" type="text" />
-            <button class="btn"><i class="fa fa-paper-plane fa-2x"></i> Enviar</button>
-
-        </form>
+        <input id="mensagem" placeholder="Mensagem" type="text" autocomplete="off" />
+        <button id="enviar" class="btn"><i class="fa fa-paper-plane fa-2x"></i> Enviar</button>
     </div>
 </div>
 

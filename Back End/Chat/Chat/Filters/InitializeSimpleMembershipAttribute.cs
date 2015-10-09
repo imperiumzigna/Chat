@@ -38,7 +38,7 @@ namespace Chat.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("Chat", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("Chat", "Usuarios", "UsuarioId", "UsuarioNome", autoCreateTables: true);
                 }
                 catch (Exception ex)
                 {
