@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -10,15 +10,16 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar" style="background-color:black">
+    <div class="container">
         <div class="content-wrapper">
             <div class="float-right">
+                
                 <p class="site-title">@Html.ActionLink("Chat", "Index", "Home")</p>
             </div>
-           
-        </div>
-    </nav>
 
+        </div>
+    
+</div>
     <div id="body">
         <div class="content-wrapper">
             
@@ -28,10 +29,12 @@
                 </section>
             </div>
         </div>
+
         <section class="content-wrapper main-content clear-fix">
             @RenderBody()
         </section>
     </div>
+        
     <div class="footer-copyright">
         <div class="content-wrapper">
             <div class="float-left">

@@ -12,7 +12,8 @@
 /*Fim*/
 
 html {
-    background-color: #e2e2e2;
+   line-height: 1.5;
+   background-color: #e2e2e2;
     margin: 0;
     padding: 0;
 }
@@ -32,7 +33,7 @@ a {
     outline: none;
     padding-left: 3px;
     padding-right: 3px;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
     a:link, a:visited,
@@ -112,7 +113,7 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #;
     clear: both;
     padding-bottom: 35px;
 }

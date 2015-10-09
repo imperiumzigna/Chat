@@ -4,7 +4,9 @@
     ViewBag.Title = "Entrar";
 }
 
-<section id="loginForm">
+<section id ="loginForm" class="row">
+ 
+
 
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
@@ -28,7 +30,7 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Entrar" />
+       <input type="submit" value="Entrar" />
     </fieldset>
 }
 </section>
