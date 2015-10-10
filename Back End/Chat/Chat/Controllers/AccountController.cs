@@ -265,12 +265,12 @@ namespace Chat.Controllers
                 // Inserir um novo usuário no banco de dados
                 using (UsersContext db = new UsersContext())
                 {
-                    UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
+                    Usuario user = db.Usuarios.FirstOrDefault(u => u.UsuarioNome.ToLower() == model.UserName.ToLower());
                     // Verificar se o usuário já existe
                     if (user == null)
                     {
                         // Inserir o nome na tabela de perfil
-                        db.UserProfiles.Add(new UserProfile { UserName = model.UserName });
+                        db.Usuarios.Add(new Usuario { UsuarioNome = model.UserName });
                         db.SaveChanges();
 
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);

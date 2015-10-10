@@ -15,57 +15,60 @@ namespace Chat.Controllers
 
         //Envia uma mensagem para um usuário
         [HttpPost]
-        public ActionResult Send(string username, string mensagem)
+        public ActionResult Send(string conv, string mensagem)
         {
-            if (username == null || mensagem == null)
+            if (conv == null || mensagem == null)
             {
                 return HttpNotFound();
             }
 
-            // Insere usuário na base
-            UserProfile user = db.UserProfiles.FirstOrDefault(x => x.UserName == username);
-            UserProfile i = db.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
-
-            if (user != null)
+            //Proíbe usuário de enviar mensagem para ele mesmo
+            if (conv == User.Identity.Name)
             {
-                Conversa minhaconversa = i.Conversas.FirstOrDefault(x => x.Usuario == username);
-                Conversa userconversa = user.Conversas.FirstOrDefault(x => x.Usuario == i.UserName);
-
-                if (minhaconversa == null)
-                {
-                    minhaconversa = new Conversa(username);
-                    i.Conversas.Add(minhaconversa);
-                }
-
-                if (userconversa == null)
-                {
-                    userconversa = new Conversa(i.UserName);
-                    user.Conversas.Add(userconversa);
-                }
-
-                //Mensagem msg = new Mensagem(i.UserName, mensagem, DateTime.Now);
-                minhaconversa.Mensagens.Add(new Mensagem(i.UserName, mensagem, DateTime.Now));
-                userconversa.Mensagens.Add(new Mensagem(i.UserName, mensagem, DateTime.Now));
-                db.SaveChanges();
-                return new HttpStatusCodeResult(200);
+                return HttpNotFound();
             }
 
-            return HttpNotFound();
+            Usuario usuario = db.Usuarios.FirstOrDefault(x => x.UsuarioNome == conv);
+
+            //Nome da conversa não é um usuário
+            //Implementar lógica de grupos
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+
+            Conversa conversa = db.Conversas.FirstOrDefault(x => x.Participantes.FirstOrDefault(y => y.UsuarioNome == User.Identity.Name) != null && x.Participantes.FirstOrDefault(z => z.UsuarioNome == conv) != null);
+
+            if (conversa == null)
+            {
+                conversa = new Conversa();
+                db.Conversas.Add(conversa);
+
+                Usuario eu = db.Usuarios.FirstOrDefault(x => x.UsuarioNome == User.Identity.Name);
+                conversa.Participantes.Add(eu);
+                conversa.Participantes.Add(usuario);
+            }
+
+            Mensagem m = new Mensagem(User.Identity.Name, mensagem, DateTime.Now.Ticks);
+            conversa.Mensagens.Add(m);
+            conversa.BroadCast(m);
+            db.SaveChanges();
+
+            return new HttpStatusCodeResult(200);
         }
 
-        //Recebe todas as mensagens do usuário logado (em formato JSON)
-        [HttpGet]
-        public ActionResult ReceiveAll()
+        //Recebe novas mensagens do usuário logado (em formato JSON)
+        public ActionResult Receive()
         {
-            UserProfile user = db.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
+            Usuario eu = db.Usuarios.FirstOrDefault(x => x.UsuarioNome == User.Identity.Name);
 
-            if (user != null)
-            {
-                object jsonlist = user.Conversas.Select(x=>new ConversaJson(x.Usuario, x.Mensagens.Select(y => new MensagemJson(y.Usuario,y.Conteudo, y.Hora))));
-                return Json(jsonlist, JsonRequestBehavior.AllowGet);
-            }
+            object json = eu.Mensagens.Select(x => new MensagemJson(x.MensagemId, x.GetAutor(User.Identity.Name), x.Conversa.GetNomeConversa(eu.UsuarioNome), x.Conteudo, new DateTime(x.Hora).ToString("hh:mm dd/MM/yyyy"))).ToList();
 
-            return HttpNotFound();
+            //Descomentar essa linha para limpar histórico
+            eu.Mensagens.Clear();
+
+            db.SaveChanges();
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
     }
 }

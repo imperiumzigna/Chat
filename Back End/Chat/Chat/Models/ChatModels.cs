@@ -7,52 +7,88 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace Chat.Models
 {
-    [Table("Mensagem")]
+    [Table("Mensagens")]
     public class Mensagem
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int MensagemId { get; set; }
-        public string Usuario { get; set; }
+        public string Autor { get; set; }
         public string Conteudo { get; set; }
-        public DateTime? Hora { get; set; }
+        public long Hora { get; set; }
         public virtual Conversa Conversa { get; set; }
-        
+        public virtual List<Usuario> Usuarios { get; set; }
+
         public Mensagem()
         {
+            Usuarios = new List<Usuario>();
         }
 
-        public Mensagem(string u, string c, DateTime? h)
+        public Mensagem(string a, string c, long h)
         {
-            Usuario = u;
+            Autor = a;
             Conteudo = c;
             Hora = h;
-             
+            Usuarios = new List<Usuario>();
+        }
+
+        public string GetAutor(string myname)
+        {
+            if (myname == Autor)
+            {
+                return "Você";
+            }
+
+            return Autor;
         }
     }
 
-    [Table("Conversa")]
+    [Table("Conversas")]
     public class Conversa
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ConversaId { get; set; }
-        public string Usuario { get; set; }
+        public string NomeConversa { get; set; }
         public virtual List<Mensagem> Mensagens { get; set; }
-        public virtual UserProfile UserProfile { get; set; }
+        public virtual List<Usuario> Participantes { get; set; }
+        [NotMapped]
+        public bool IsGrupo
+        {
+            get
+            {
+                return Participantes.Count > 2;
+            }
+        }
 
         public Conversa()
         {
+            Participantes = new List<Usuario>();
             Mensagens = new List<Mensagem>();
         }
 
-        public Conversa(string u)
+        public string GetNomeConversa(string myname)
         {
-            Mensagens = new List<Mensagem>();
-            Usuario = u;
+            if (IsGrupo)
+            {
+                return NomeConversa;
+            }
+            else
+            {
+                return Participantes.FirstOrDefault(x => x.UsuarioNome != myname).UsuarioNome;
+            }
+        }
+
+        public void BroadCast(Mensagem m)
+        {
+            foreach (var item in Participantes)
+            {
+                item.Mensagens.Add(m);
+            }
         }
     }
 
@@ -62,43 +98,47 @@ namespace Chat.Models
         [DataMember]
         public int MensagemId { get; set; }
         [DataMember]
-        public string Usuario { get; set; }
+        public string Autor { get; set; }
+        [DataMember]
+        public string NomeConversa { get; set; }
         [DataMember]
         public string Conteudo { get; set; }
         [DataMember]
-        public DateTime? Hora { get; set; }
+        public string Hora { get; set; }
 
         public MensagemJson()
         {
         }
 
-        public MensagemJson(string u, string c, DateTime? h)
+        public MensagemJson(int id, string autor, string nomeconversa, string c, string h)
         {
-            Usuario = u;
+            MensagemId = id;
+            Autor = autor;
             Conteudo = c;
             Hora = h;
+            NomeConversa = nomeconversa;
         }
     }
 
-    [DataContract]
-    public class ConversaJson
-    {
-        [DataMember]
-        public int ConversaId { get; set; }
-        [DataMember]
-        public string Usuario { get; set; }
-        [DataMember]
-        public IEnumerable<MensagemJson> Mensagens { get; set; }
+    //[DataContract]
+    //public class ConversaJson
+    //{
+    //    [DataMember]
+    //    public int ConversaId { get; set; }
+    //    [DataMember]
+    //    public string NomeConversa { get; set; }
+    //    [DataMember]
+    //    public IEnumerable<MensagemJson> Mensagens { get; set; }
 
-        public ConversaJson()
-        {
-            Mensagens = new List<MensagemJson>();
-        }
+    //    public ConversaJson()
+    //    {
+    //        Mensagens = new List<MensagemJson>();
+    //    }
 
-        public ConversaJson(string u, IEnumerable<MensagemJson> m)
-        {
-            Mensagens = m;
-            Usuario = u;
-        }
-    }
+    //    public ConversaJson(string nomeconversa, IEnumerable<MensagemJson> m)
+    //    {
+    //        Mensagens = m;
+    //        NomeConversa = nomeconversa;
+    //    }
+    //}
 }
