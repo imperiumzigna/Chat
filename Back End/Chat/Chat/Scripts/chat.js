@@ -24,34 +24,34 @@ var ajax = function () {
             }
         }
     });
-<<<<<<< HEAD
+
 };
 
 $("#enviar").click(
     function () {
-        var dados = { conv: selected, mensagem: $("#mensagem").val() };
-        $.post("ChatApi/Send", dados);
-        $("#mensagem").input.value = "";
+        var dados = { conv: selected, mensagem: $("#mensagem").target.get.value() };
+        $.ajax("ChatApi/Send", dados);
+        
     }
     );
 
 //Fazer requisição à cada 1 segundo
 setInterval(ajax, 1000);
-=======
-}
-// Commit Teste -> a deletar 
+
+ 
 // Falta receber o nome do usuário a que se deseja enviar a mensagem 
-var enviar = function () {
-    var ajax = $.post("ChatApi/Send", {
-        user: "",
-        mensagem: ""
-    });
-}
+//var enviar = function () {
+//    var ajax = $.post("ChatApi/Send", {
+//        user: "",
+//        mensagem: ""
+//    });
+//}
     
 // Teste de busca pelo nome do usuário 
 $(document).ready(function () {
-    carrega();
-    console.log();
+    ajax();
+    console.log($("#mensagem").input.val(''));
+
 }
 );
->>>>>>> origin/master
+
