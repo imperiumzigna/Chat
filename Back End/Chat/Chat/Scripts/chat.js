@@ -40,17 +40,17 @@ setInterval(ajax, 1000);
 
  
 // Falta receber o nome do usuário a que se deseja enviar a mensagem 
-//var enviar = function () {
-//    var ajax = $.post("ChatApi/Send", {
-//        user: "",
-//        mensagem: ""
-//    });
-//}
+var enviar = function () {
+    var ajax = $.post("ChatApi/Send", {
+        user: "",
+        mensagem: ""
+    });
+}
     
 // Teste de busca pelo nome do usuário 
 $(document).ready(function () {
     ajax();
-    console.log($("#mensagem").input.val(''));
+    enviar();
 
 }
 );
