@@ -37,6 +37,7 @@ namespace Chat.Models
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Conversa> Conversas { get; set; }
         public DbSet<Mensagem> Mensagens { get; set; }
+
     }
 
     [Table("Usuarios")]
@@ -48,11 +49,14 @@ namespace Chat.Models
         public string UsuarioNome { get; set; }
         public virtual List<Mensagem> Mensagens { get; set; }
         public virtual List<Conversa> Conversas { get; set; }
-
+        // Diz se o usuário está logado
+        //public DateTime Logado { get; set; }
         public Usuario()
         {
             Mensagens = new List<Mensagem>();
             Conversas = new List<Conversa>();
+        
+            
         }
     }
 
@@ -97,6 +101,8 @@ namespace Chat.Models
 
         [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
+
+        public DateTime Logado { get; set; }
     }
 
     public class RegisterModel

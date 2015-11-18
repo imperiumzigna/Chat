@@ -13,6 +13,7 @@ namespace Chat.Controllers
     {
         UsersContext db = new UsersContext();
 
+
         //Envia uma mensagem para um usuário
         [HttpPost]
         public ActionResult Send(string conv, string mensagem)
@@ -57,6 +58,7 @@ namespace Chat.Controllers
             return new HttpStatusCodeResult(200);
         }
 
+
         //Recebe novas mensagens do usuário logado (em formato JSON)
         public ActionResult Receive()
         {
@@ -65,7 +67,7 @@ namespace Chat.Controllers
             object json = eu.Mensagens.Select(x => new MensagemJson(x.MensagemId, x.GetAutor(User.Identity.Name), x.Conversa.GetNomeConversa(eu.UsuarioNome), x.Conteudo, new DateTime(x.Hora).ToString("hh:mm dd/MM/yyyy"))).ToList();
 
             //Descomentar essa linha para limpar histórico
-            eu.Mensagens.Clear();
+          eu.Mensagens.Clear();
 
             db.SaveChanges();
             return Json(json, JsonRequestBehavior.AllowGet);

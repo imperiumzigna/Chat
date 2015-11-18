@@ -27,13 +27,32 @@ var ajax = function () {
 
 };
 
-$("#enviar").click(
+$("#enviar").submit(
     function () {
-        var dados = { conv: selected, mensagem: $("#mensagem").target.get.value() };
-        $.ajax("ChatApi/Send", dados);
-        
-    }
-    );
+        $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: 'ChatApi/Send', // the url where we want to POST
+            data: {
+                user: '',
+                mensagen: ''
+            }, // our data object
+            dataType: 'json', // what type of data do we expect back from the server
+            encode: true
+        })
+                  // using the done promise callback
+                  .done(function (data) {
+
+                      // log data to the console so we can see
+                      console.log(data);
+
+                      // here we will handle errors and validation messages
+                  });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+    });
+    
+    
 
 //Fazer requisição à cada 1 segundo
 setInterval(ajax, 1000);
@@ -50,7 +69,7 @@ var enviar = function () {
 // Teste de busca pelo nome do usuário 
 $(document).ready(function () {
     ajax();
-    enviar();
+    
 
 }
 );

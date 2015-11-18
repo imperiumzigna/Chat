@@ -23,6 +23,7 @@ namespace Chat.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -37,6 +38,7 @@ namespace Chat.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                
                 return RedirectToLocal(returnUrl);
             }
 
